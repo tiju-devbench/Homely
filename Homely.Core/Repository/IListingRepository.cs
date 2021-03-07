@@ -8,6 +8,7 @@ namespace Homely.Core.Repository
 {
     public interface IListingRepository 
     {
-        Task<IEnumerable<Listing>> GetPagedListingAsync();
+        public int CountTask { get; set; }
+        Task<IEnumerable<Listing>> GetPagedListingAsync(string suburb, int categoryType, int statusType, int skip, int take);
     }
 }

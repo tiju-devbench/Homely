@@ -8,6 +8,6 @@ namespace Homely.Services.Interfaces
 {
     public interface IListingService
     {
-        Task<IEnumerable<ListingModel>> GetPagedListing();
+        Task<ListingModel> GetPagedListing(string suburb, string categoryType, string statusType, int skip, int take);
     }
 }

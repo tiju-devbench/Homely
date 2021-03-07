@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Homely.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -21,11 +22,19 @@ namespace API.Controllers
         [HttpGet]
         [Route("")]
         [Route("listings")]
-        public async Task<IActionResult> GetListings()
+        public async Task<IActionResult> GetListings(string suburb,string categoryType,string statusType,int skip = 0 ,int take =10)
         {
-            var listing = await _listingService.GetPagedListing();
-
-            return Ok(listing);
+            try
+            {
+                var listing = await _listingService.GetPagedListing(suburb, categoryType, statusType, skip, take);
+                _logger.LogInformation("Listing fetched successfully");
+                return Ok(listing);
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+            }
+            return BadRequest();
         }
 
 
