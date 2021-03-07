@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Homely.Infrastructure\Homely.Infrastructure.csproj" />
+    <ProjectReference Include="..\Homely.Service\Homely.Services.csproj" />
+  </ItemGroup>
+
+
+</Project>
