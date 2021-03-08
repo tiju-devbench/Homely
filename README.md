@@ -25,23 +25,6 @@ Please treat this project and the tasks below as if they were part of, or the be
 3. Open the `TakeHomeExcercise.sln` solution and confirm you can build and run the API. You should see "TODO" being returned from the `/listings` route.
 4. Happy coding. Good luck, and have fun! :)
 
-# How to do the exercise
-As you work on each task please prefix your commit(s) message(s) with the task reference using the following pattern:
-
-> [Task-XX] My commit message
-
-When you complete a task, as part of your commit and changes, please change the corresponding task status below from `Pending` to `Completed` and add any comments into the designated area at the bottom of each task, where you can explain what problems you found and how you solved them. You can also explain how you'd do something more complex and/or time consuming if you had the time for it, feel free to also add any other comments that are relevant to the task.
-
-If you have made any changes to the DB (changed schema, added indexes, foreign keys, etc), please include what you've done in the comments section of the relevant section.
-
-An example of the expected information in a comments section could be:
-
-```
-- Code currently does XXX. A possible enhancement later could be to do ZZZ
-- Wasn't sure what was intended for scenario YYY here, so i made the call to do ZZZ
-```
-
-
 # Tasks
 
 ---
@@ -82,16 +65,17 @@ The returned JSON should look like:
 
 ```
 Add comments here
+```
 Assumptions: 
 1.Total is the total count of the query (used for paging)
 2. The response is sorted in the ascending order of the listingId
-```
 
+Used Automapper to map Listing Entity to DTO object
 ---
 
 ## `Task-02`: Add caching by suburb
 
-_Status: `Pending`_
+_Status: `Completed`_
 
 A common use case for listings is returning current listings of a given type in a suburb. Because of this, we would like some basic caching adding to avoid the trip to the DB.
 
@@ -106,12 +90,13 @@ Please add this caching functionality, so that the following behavior occurs:
 ```
 Add comments here
 ```
-
+Used Memory cache with the cache key Listing_{suburb}_{categoryType}_{skip} to store previous query results
+if for the same Listing_{suburb}_{categoryType}_{skip} combination, take value is greater than cached take value, DB is hit
 ---
 
 ## `Task-03`: Add a new property shortPrice
 
-_Status: `Pending`_
+_Status: `Completed`_
 
 We would like a new prop added to the payload:
 ```
@@ -137,7 +122,7 @@ Bonus points for handling other scenarios (use your judgement as to what the val
 ```
 Add comments here
 ```
-
+added GetShortPrice() helper method in AutoMapper configuration file to convert display price to short price
 ---
 
 ## `Task-04`: Tests
