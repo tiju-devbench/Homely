@@ -18,6 +18,7 @@ namespace Homely.Services.Models
         public string statusType { get; set; }
 
         public string displayPrice { get; set; }
+        public string? ShortPrice { get; set; }
         public string title { get; set; }
 
 
