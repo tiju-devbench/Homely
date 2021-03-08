@@ -64,13 +64,14 @@ The returned JSON should look like:
 ```
 
 ```
-Add comments here
-```
 Assumptions: 
 1.Total is the total count of the query (used for paging)
 2. The response is sorted in the ascending order of the listingId
 
+Used Entity Framework Core for ORM solution.
+I have disabled EntityFramework TrackChanges feature while querying the SQL DB for this project. Alternatively, I could use Micro-ORM like Dapper - used EF Core as I'm more comfortable with building quries with LINQ
 Used Automapper to map Listing Entity to DTO object
+```
 ---
 
 ## `Task-02`: Add caching by suburb
@@ -88,10 +89,10 @@ Please add this caching functionality, so that the following behavior occurs:
 5. `GET: /listings?suburb=Southbank&categoryType=Rental&take=5` -> cache HIT
 
 ```
-Add comments here
-```
 Used Memory cache with the cache key Listing_{suburb}_{categoryType}_{skip} to store previous query results
 if for the same Listing_{suburb}_{categoryType}_{skip} combination, take value is greater than cached take value, DB is hit
+```
+
 ---
 
 ## `Task-03`: Add a new property shortPrice
@@ -120,9 +121,9 @@ Minimum scenarios to handle:
 Bonus points for handling other scenarios (use your judgement as to what the value should be)
 
 ```
-Add comments here
+Added GetShortPrice() helper method in AutoMapper configuration file to convert display price to short price
 ```
-added GetShortPrice() helper method in AutoMapper configuration file to convert display price to short price
+
 ---
 
 ## `Task-04`: Tests
