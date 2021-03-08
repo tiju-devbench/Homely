@@ -30,12 +30,14 @@ namespace API.Controllers
         {
             try
             {
-                ListingModel listing = new ListingModel();
-                if (!_cache.TryGetValue("listings_"+suburb+"_"+categoryType, out listing))
+                //ListingModel listing = new ListingModel();
+                 bool isCached = _cache.TryGetValue("listings_" + suburb + "_" + categoryType + "_" + skip, out ListingModel listing);
+
+                if (!isCached || listing.items.Count < take)
                 {
                     listing = await _listingService.GetPagedListing(suburb, categoryType, statusType, skip, take);
                     _logger.LogInformation("Successfully fetched listings from DB");
-                    _cache.Set("listings_" + suburb + "_" + categoryType, listing);
+                    _cache.Set("listings_" + suburb + "_" + categoryType + "_" + skip, listing);
                     return Ok(listing);
                 }
                 _logger.LogInformation("Successfully fetched listings from Cache");
