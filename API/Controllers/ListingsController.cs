@@ -1,7 +1,9 @@
 using System;
 using System.Threading.Tasks;
 using Homely.Services.Interfaces;
+using Homely.Services.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 
 namespace API.Controllers
@@ -12,11 +14,13 @@ namespace API.Controllers
     {
         private readonly ILogger<ListingsController> _logger;
         private readonly IListingService _listingService;
+        private readonly IMemoryCache _cache;
 
-        public ListingsController(ILogger<ListingsController> logger, IListingService listingService)
+        public ListingsController(ILogger<ListingsController> logger, IListingService listingService, IMemoryCache memoryCache)
         {
             _logger = logger;
             _listingService = listingService;
+            _cache = memoryCache;
         }
 
         [HttpGet]
@@ -26,8 +30,15 @@ namespace API.Controllers
         {
             try
             {
-                var listing = await _listingService.GetPagedListing(suburb, categoryType, statusType, skip, take);
-                _logger.LogInformation("Listing fetched successfully");
+                ListingModel listing = new ListingModel();
+                if (!_cache.TryGetValue("listings_"+suburb+"_"+categoryType, out listing))
+                {
+                    listing = await _listingService.GetPagedListing(suburb, categoryType, statusType, skip, take);
+                    _logger.LogInformation("Successfully fetched listings from DB");
+                    _cache.Set("listings_" + suburb + "_" + categoryType, listing);
+                    return Ok(listing);
+                }
+                _logger.LogInformation("Successfully fetched listings from Cache");
                 return Ok(listing);
             }
             catch(Exception ex)

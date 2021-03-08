@@ -31,6 +31,8 @@ namespace API
 
         private void ConfigureHomelyServices(IServiceCollection services)
         {
+            //Add Memory cache
+            services.AddMemoryCache();
 
             //Add Service Layer
             services.AddScoped<IListingService, ListingService>();
